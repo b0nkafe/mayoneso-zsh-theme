@@ -19,7 +19,7 @@ To install it just do this:
 
 Screenshot
 ----------
-![screenshot](bheras.github.com/mayoneso-zsh-theme/img/mayoneso.png)
+![screenshot](https://raw.github.com/bheras/mayoneso-zsh-theme/master/img/mayoneso.png)
 
 Notes
 -----
