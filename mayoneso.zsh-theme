@@ -40,21 +40,21 @@ function get_load() {
 # Local variables
 #
 time="%{$fg_bold[black]%}%T%{$reset_color%}"
-pre="%{$fg[cyan]%}·%{$reset_color%}"
+pre="%{$fg_bold[yellow]%}·%{$reset_color%}"
 user="%{$fg_bold[$USERCOLOR]%}%n%{$reset_color%}"
-hostname="%{$fg_bold[blue]%} ➲ %{$fg_bold[green]%}%M%{$reset_color%}"
-dir="%{$fg_bold[cyan]%}%~%{$reset_color%}"
-post="%{$fg[cyan]%}·%{$reset_color%}"
+hostname="%{$fg[yellow]%} ➲ %{$fg_bold[green]%}%M%{$reset_color%}"
+dir="%{$fg_bold[black]%}%~%{$reset_color%}"
+post="%{$fg_bold[yellow]%}·%{$reset_color%}"
 
 # Prompt and Right Prompt
 #
-PROMPT='%{$fg_bold[blue]%}⌈ ${time} ${user}${hostname} ${pre}${dir}${post} $(git_prompt_info)
-%{$fg_bold[blue]%}⌊ %{$fg_bold[$USERCOLOR]%}%#%{$reset_color%} '
+PROMPT='%{$fg[yellow]%}⌈ ${time} ${user}${hostname} ${pre}${dir}${post} $(git_prompt_info)
+%{$fg[yellow]%}⌊ %{$fg_bold[$USERCOLOR]%}%#%{$reset_color%} '
 RPROMPT='$(get_vpn_status) $(get_load)'
 
 # Git stuff
 #
-ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg_bold[blue]%}(%{$reset_color%}"
-ZSH_THEME_GIT_PROMPT_SUFFIX="%{$fg_bold[blue]%})%{$reset_color%}"
+ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg[yellow]%}(%{$fg_bold[black]%}"
+ZSH_THEME_GIT_PROMPT_SUFFIX="%{$fg[yellow]%})%{$reset_color%}"
 ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[yellow]%} •%{$reset_color%}"
 ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[green]%} •%{$reset_color%}"
