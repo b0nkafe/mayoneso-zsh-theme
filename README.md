@@ -21,8 +21,3 @@ Screenshot
 ----------
 ![screenshot](https://raw.github.com/bheras/mayoneso-zsh-theme/master/img/mayoneso.png)
 
-Notes
------
-If you run into issues with [OhMyZsh](https://github.com/robbyrussell/oh-my-zsh) plugins when _sudoing_, just add this to `/etc/sudoers`:
-
-`Defaults    env_keep += "ZSH"`
