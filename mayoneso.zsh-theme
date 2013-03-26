@@ -6,39 +6,39 @@
 # Functions and stuff
 #
 if [ $UID -ne 0 ]; then
-	USERCOLOR="yellow"
+  USERCOLOR="yellow"
 else
-	USERCOLOR="red"
+  USERCOLOR="red"
 fi
 
 # VPN status
 # 
 function get_vpn_status() {
-	VPN=$(ifconfig | grep ppp | cut -d" " -f 2)
-	if [ $VPN ]; then 
-		echo -n "%{$fg_bold[black]%}v:%{$fg_bold[green]%}⇡%{$reset_color%} "
- 	else 
-		echo -n "%{$fg_bold[black]%}v:%{$fg_bold[red]%}⇣%{$reset_color%} "; 
-	fi
+VPN=$(ifconfig | grep ppp | cut -d" " -f 2)
+if [ $VPN ]; then 
+  echo -n "%{$fg_bold[black]%}v:%{$fg_bold[green]%}⇡%{$reset_color%} "
+else 
+  echo -n "%{$fg_bold[black]%}v:%{$fg_bold[red]%}⇣%{$reset_color%} "; 
+fi
 }
 
 # We check only last minute avg. 
 #
 function get_load() {
-  if [[ $OSTYPE == "linux-gnu" ]]; then
-    LOAD=$(cat /proc/loadavg | cut -d" " -f1 | cut -d. -f1)
-    LOADAVG=$(cat /proc/loadavg | cut -d" " -f1,2,3)
-  else
-    LOAD=$(sysctl -n vm.loadavg | cut -d" " -f2 | cut -d. -f1)
-    LOADAVG=$(sysctl -n vm.loadavg | cut -d" " -f2,3,4)
-  fi
-	if [ $LOAD -lt 3 ]; then
-		echo -n "%{$fg_bold[black]%}l:%{$fg_bold[green]%}$LOADAVG %{$reset_color%}"
-	elif [[ $LOAD -ge 3 && $LOAD -lt 4 ]]; then
-		echo -n "%{$fg_bold[black]%}l:%{$fg_bold[yellow]%}$LOADAVG %{$reset_color%}"
-	elif [ $LOAD -ge 4 ]; then 
-		echo -n "%{$fg_bold[black]%}l:%{$fg_bold[red]%}$LOADAVG %{$reset_color%}"
-	fi
+if [[ $OSTYPE == "linux-gnu" ]]; then
+  LOAD=$(cat /proc/loadavg | cut -d" " -f1 | cut -d. -f1)
+  LOADAVG=$(cat /proc/loadavg | cut -d" " -f1,2,3)
+else
+  LOAD=$(sysctl -n vm.loadavg | cut -d" " -f2 | cut -d. -f1)
+  LOADAVG=$(sysctl -n vm.loadavg | cut -d" " -f2,3,4)
+fi
+if [ $LOAD -lt 3 ]; then
+  echo -n "%{$fg_bold[black]%}l:%{$fg_bold[green]%}$LOADAVG %{$reset_color%}"
+elif [[ $LOAD -ge 3 && $LOAD -lt 4 ]]; then
+  echo -n "%{$fg_bold[black]%}l:%{$fg_bold[yellow]%}$LOADAVG %{$reset_color%}"
+elif [ $LOAD -ge 4 ]; then 
+  echo -n "%{$fg_bold[black]%}l:%{$fg_bold[red]%}$LOADAVG %{$reset_color%}"
+fi
 }
 
 # Local variables
