@@ -23,17 +23,21 @@ function get_vpn_status() {
 }
 
 # We check only last minute avg. 
-# - Change $LOAD to 'uptime | cut -d, -f 6 | cut -d" " -f 2' to get 5min avg
-# - Change $LOAD to 'uptime | cut -d, -f 5 | cut -d" " -f 2' to get 15min avg
 #
 function get_load() {
-	LOAD=$(uptime | cut -d, -f 4 | cut -d: -f 2)
+  if [[ $OSTYPE == "linux-gnu" ]]; then
+    LOAD=$(cat /proc/loadavg | cut -d" " -f1 | cut -d. -f1)
+    LOADAVG=$(cat /proc/loadavg | cut -d" " -f1,2,3)
+  else
+    LOAD=$(sysctl -n vm.loadavg | cut -d" " -f2 | cut -d. -f1)
+    LOADAVG=$(sysctl -n vm.loadavg | cut -d" " -f2,3,4)
+  fi
 	if [ $LOAD -lt 3 ]; then
-		echo -n "%{$fg_bold[black]%}l:%{$fg_bold[green]%}$(uptime | cut -d" " -f 11,12,13) %{$reset_color%}"
+		echo -n "%{$fg_bold[black]%}l:%{$fg_bold[green]%}$LOADAVG %{$reset_color%}"
 	elif [[ $LOAD -ge 3 && $LOAD -lt 4 ]]; then
-		echo -n "%{$fg_bold[black]%}l:%{$fg_bold[yellow]%}$(uptime | cut -d" " -f 11,12,13) %{$reset_color%}"
+		echo -n "%{$fg_bold[black]%}l:%{$fg_bold[yellow]%}$LOADAVG %{$reset_color%}"
 	elif [ $LOAD -ge 4 ]; then 
-		echo -n "%{$fg_bold[black]%}l:%{$fg_bold[red]%}$(uptime | cut -d" " -f 11,12,13) %{$reset_color%}"
+		echo -n "%{$fg_bold[black]%}l:%{$fg_bold[red]%}$LOADAVG %{$reset_color%}"
 	fi
 }
 
