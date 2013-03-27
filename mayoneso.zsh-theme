@@ -34,12 +34,22 @@ else
   LOAD=$(sysctl -n vm.loadavg | cut -d" " -f2 | cut -d. -f1)
   LOADAVG=$(sysctl -n vm.loadavg | cut -d" " -f2,3,4)
 fi
-if [ $LOAD -lt $(($CPUCORES / 2)) ]; then
-  echo -n "%{$fg_bold[black]%}l:%{$fg_bold[green]%}$LOADAVG %{$reset_color%}"
-elif [[ $LOAD -ge $(($CPUCORES / 2)) && $LOAD -lt $CPUCORES ]]; then
-  echo -n "%{$fg_bold[black]%}l:%{$fg_bold[yellow]%}$LOADAVG %{$reset_color%}"
-elif [ $LOAD -ge $CPUCORES ]; then 
-  echo -n "%{$fg_bold[black]%}l:%{$fg_bold[red]%}$LOADAVG %{$reset_color%}"
+if [ `expr $CPUCORES % 2` -eq 0 ]; then
+	if [ $LOAD -lt $(($CPUCORES / 2)) ]; then
+		echo -n "%{$fg_bold[black]%}l:%{$fg_bold[green]%}$LOADAVG %{$reset_color%}"
+	elif [[ $LOAD -ge $(($CPUCORES / 2)) && $LOAD -lt $CPUCORES ]]; then
+		echo -n "%{$fg_bold[black]%}l:%{$fg_bold[yellow]%}$LOADAVG %{$reset_color%}"
+	elif [ $LOAD -ge $CPUCORES ]; then 
+		echo -n "%{$fg_bold[black]%}l:%{$fg_bold[red]%}$LOADAVG %{$reset_color%}"
+	fi
+else
+	if (( $LOAD < 0.50 )); then
+		echo -n "%{$fg_bold[black]%}l:%{$fg_bold[green]%}$LOADAVG %{$reset_color%}"
+	elif (( $LOAD >= 0.50 )) && (( $LOAD < 1.00 )); then
+		echo -n "%{$fg_bold[black]%}l:%{$fg_bold[yellow]%}$LOADAVG %{$reset_color%}"
+	elif (( $LOAD >= 1.00 )); then
+		echo -n "%{$fg_bold[black]%}l:%{$fg_bold[red]%}$LOADAVG %{$reset_color%}"
+	fi
 fi
 }
 
