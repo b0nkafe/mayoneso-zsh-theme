@@ -26,17 +26,19 @@ fi
 #
 function get_load() {
 if [[ $OSTYPE == "linux-gnu" ]]; then
+	CPUCORES=$(grep processor /proc/cpuinfo | wc -l)
   LOAD=$(cat /proc/loadavg | cut -d" " -f1 | cut -d. -f1)
   LOADAVG=$(cat /proc/loadavg | cut -d" " -f1,2,3)
 else
+	CPUCORES=$(sysctl -n hw.ncpu)
   LOAD=$(sysctl -n vm.loadavg | cut -d" " -f2 | cut -d. -f1)
   LOADAVG=$(sysctl -n vm.loadavg | cut -d" " -f2,3,4)
 fi
-if [ $LOAD -lt 3 ]; then
+if [ $LOAD -lt $(($CPUCORES / 2)) ]; then
   echo -n "%{$fg_bold[black]%}l:%{$fg_bold[green]%}$LOADAVG %{$reset_color%}"
-elif [[ $LOAD -ge 3 && $LOAD -lt 4 ]]; then
+elif [[ $LOAD -ge $(($CPUCORES / 2)) && $LOAD -lt $CPUCORES ]]; then
   echo -n "%{$fg_bold[black]%}l:%{$fg_bold[yellow]%}$LOADAVG %{$reset_color%}"
-elif [ $LOAD -ge 4 ]; then 
+elif [ $LOAD -ge $CPUCORES ]; then 
   echo -n "%{$fg_bold[black]%}l:%{$fg_bold[red]%}$LOADAVG %{$reset_color%}"
 fi
 }
