@@ -72,5 +72,5 @@ RPROMPT='$(get_vpn_status) $(get_load)'
 #
 ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg[yellow]%}(%{$fg_bold[black]%}"
 ZSH_THEME_GIT_PROMPT_SUFFIX="%{$fg[yellow]%})%{$reset_color%}"
-ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[yellow]%} •%{$reset_color%}"
-ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[green]%} •%{$reset_color%}"
+ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[yellow]%} ●%{$reset_color%}"
+ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[green]%} ●%{$reset_color%}"
